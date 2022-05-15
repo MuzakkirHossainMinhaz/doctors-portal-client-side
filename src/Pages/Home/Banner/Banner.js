@@ -9,7 +9,7 @@ const Banner = () => {
                 <div>
                     <h1 class="text-5xl font-bold leading-relaxed">Your New Smile Starts Here</h1>
                     <p class="py-6 leading-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                    <button class="btn btn-secondary w-32 font-bold text-white text-sm">Get Started</button>
+                    <button class="btn btn-secondary w-32 font-bold text-white text-sm bg-gradient-to-r from-secondary to-primary">Get Started</button>
                 </div>
             </div>
         </div>
