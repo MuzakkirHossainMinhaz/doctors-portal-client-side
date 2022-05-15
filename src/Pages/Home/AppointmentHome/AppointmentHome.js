@@ -10,7 +10,7 @@ const AppointmentHome = () => {
         }}
         className="mb-24 mt-56"
         >
-            <div className='flex justify-center items-center'>
+            <div className='flex justify-center items-center mx-auto max-w-screen-xl'>
                 <div className='flex-1 hidden lg:block'>
                     <img className='-mt-24' src={doctor_small} alt="" />
                 </div>
