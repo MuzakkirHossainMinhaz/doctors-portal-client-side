@@ -8,7 +8,7 @@ const AppointmentHome = () => {
         <section style={{
             background: `url(${appointment})`
         }}
-        className="mb-28 mt-40"
+        className="mb-24 mt-56"
         >
             <div className='flex justify-center items-center'>
                 <div className='flex-1 hidden lg:block'>
