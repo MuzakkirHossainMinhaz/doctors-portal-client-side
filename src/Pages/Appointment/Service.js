@@ -3,7 +3,7 @@ import React from 'react';
 const Service = ({ service }) => {
     const { name, slots } = service;
     return (
-        <div class="card lg:max-w-lg mx-2  bg-base-100 shadow-xl">
+        <div class="card lg:max-w-lg mx-2 bg-base-100 shadow-xl">
             <div class="card-body items-center text-center">
                 <h2 class="card-title text-secondary">{name}</h2>
                 {

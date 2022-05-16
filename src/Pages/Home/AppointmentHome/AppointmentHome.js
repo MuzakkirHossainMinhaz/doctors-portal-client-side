@@ -18,7 +18,7 @@ const AppointmentHome = () => {
                     <h3 className='text-secondary text-xl font-bold '>Appointment</h3>
                     <h1 className='font-semibold text-4xl my-4'>Make an appointment Today</h1>
                     <p className='mb-6'>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsumis that it has a more-or-less normal distribution of letters,as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page</p>
-                    <PrimaryButton text="Get Started"></PrimaryButton>
+                    <PrimaryButton>Get Started</PrimaryButton>
                 </div>
             </div>
         </section>

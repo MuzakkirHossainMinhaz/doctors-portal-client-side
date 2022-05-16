@@ -12,10 +12,10 @@ const AvailableAppointments = ({ date }) => {
     }, []);
 
     return (
-        <section className='my-4 mx-auto max-w-screen-xl'>
+        <section className='my-20 mx-auto max-w-screen-xl'>
             <p className='text-center text-secondary text-xl hover:underline'>Available Appointments on {format(date, 'PP')}</p>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-14 mx-auto max-w-screen-xl'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-14 mx-auto w-11/12 lg:w-full'>
                 {
                     services.map(service => <Service
                         key={service._id}

@@ -19,7 +19,7 @@ const Contact = () => {
                     <textarea className="textarea h-[136px]" placeholder="Your message"></textarea>
                 </form>
 
-                <PrimaryButton type="submit" text="Submit"></PrimaryButton>
+                <PrimaryButton type="submit">Submit</PrimaryButton>
             </div>
         </section>
     );
