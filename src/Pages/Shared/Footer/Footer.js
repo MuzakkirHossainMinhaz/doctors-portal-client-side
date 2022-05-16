@@ -8,7 +8,7 @@ const Footer = () => {
             backgroundSize: 'contain'
         }} className="p-10">
             <div className='mx-auto max-w-screen-xl'>
-                <div className='footer flex justify-between'>
+                <div className='footer flex justify-between flex-col lg:flex-row'>
                     <div>
                         <span className="footer-title">Services</span>
                         <a className="link link-hover">Emergency Checkup</a>
