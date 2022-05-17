@@ -18,7 +18,7 @@ const Info = () => {
             img: marker,
             title: "Visit our location",
             text: "Brooklyn, NY 10036, United States",
-            bgclassName: "bg-accent"
+            bgclassName: "bg-[#3A4256]"
         },
         {
             _id: 3,
