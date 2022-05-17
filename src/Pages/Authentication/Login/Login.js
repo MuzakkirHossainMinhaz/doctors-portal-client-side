@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../../Shared/Loading/Loading';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
@@ -15,15 +15,20 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
 
+    let navigate = useNavigate();
+    let location = useLocation();
+    let from = location.state?.from?.pathname || "/";
+
+    useEffect(() => {
+        if (user || googleUser) {
+            navigate(from, { replace: true });
+        }
+    }, [user, googleUser, from, navigate])
 
     const onSubmit = data => {
-        console.log(data);
         signInWithEmailAndPassword(data.email, data.password);
     }
 
-    if (googleUser) {
-        console.log(googleUser);
-    }
     if (loading || googleLoading) {
         return <Loading></Loading>;
     }
@@ -35,20 +40,20 @@ const Login = () => {
 
     return (
         <div className='flex justify-center items-center h-screen'>
-            <div class="card w-96 bg-base-100 shadow-xl">
-                <div class="card-body">
-                    <h2 class="mb-2 font-semibold text-xl text-center">Login</h2>
+            <div className="card w-96 bg-base-100 shadow-xl">
+                <div className="card-body">
+                    <h2 className="mb-2 font-semibold text-xl text-center">Login</h2>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
 
-                        <div class="form-control w-full max-w-xs">
-                            <label class="label">
-                                <span class="label-text">Email</span>
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                                <span className="label-text">Email</span>
                             </label>
                             <input
                                 type="email"
                                 placeholder=""
-                                class="input input-bordered w-full max-w-xs"
+                                className="input input-bordered w-full max-w-xs"
                                 {...register("email", {
                                     required: {
                                         value: true,
@@ -60,20 +65,20 @@ const Login = () => {
                                     }
                                 })}
                             />
-                            <label class="label">
-                                {/* {errors.email?.type === 'required' && <span class="label-text-alt text-red-600 tooltip tooltip-open tooltip-bottom align-middle" data-tip={errors.email.message}></span>} */}
-                                {errors.email?.type === 'required' && <span class="label-text-alt text-red-600">{errors.email.message}</span>}
-                                {errors.email?.type === 'pattern' && <span class="label-text-alt text-red-600">{errors.email.message}</span>}
+                            <label className="label">
+                                {/* {errors.email?.type === 'required' && <span className="label-text-alt text-red-600 tooltip tooltip-open tooltip-bottom align-middle" data-tip={errors.email.message}></span>} */}
+                                {errors.email?.type === 'required' && <span className="label-text-alt text-red-600">{errors.email.message}</span>}
+                                {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-600">{errors.email.message}</span>}
                             </label>
                         </div>
-                        <div class="form-control w-full max-w-xs">
-                            <label class="label">
-                                <span class="label-text">Password</span>
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                                <span className="label-text">Password</span>
                             </label>
                             <input
                                 type="password"
                                 placeholder=""
-                                class="input input-bordered w-full max-w-xs"
+                                className="input input-bordered w-full max-w-xs"
                                 {...register("password", {
                                     required: {
                                         value: true,
@@ -85,9 +90,9 @@ const Login = () => {
                                     }
                                 })}
                             />
-                            <label class="label">
-                                {errors.password?.type === 'required' && <span class="label-text-alt  text-red-600">{errors.password.message}</span>}
-                                {errors.password?.type === 'minLength' && <span class="label-text-alt  text-red-600">{errors.password.message}</span>}
+                            <label className="label">
+                                {errors.password?.type === 'required' && <span className="label-text-alt  text-red-600">{errors.password.message}</span>}
+                                {errors.password?.type === 'minLength' && <span className="label-text-alt  text-red-600">{errors.password.message}</span>}
                             </label>
                         </div>
 
@@ -102,23 +107,23 @@ const Login = () => {
 
                     {/* <div>
                         <label className='text-start text-sm'>Email</label>
-                        <input type="email" placeholder="" class="input input-bordered w-full max-w-xs" />
+                        <input type="email" placeholder="" className="input input-bordered w-full max-w-xs" />
                     </div>
                     <div>
                         <label className='text-start text-sm'>Password</label>
-                        <input type="password" placeholder="" class="input input-bordered w-full max-w-xs" />
+                        <input type="password" placeholder="" className="input input-bordered w-full max-w-xs" />
                     </div>
                     <p className='text-[10px]'>Forgot Password ?</p>
 
-                    <button class="btn btn-accent text-base font-normal">Login</button>
+                    <button className="btn btn-accent text-base font-normal">Login</button>
 
                     */}
 
-                    <div class="divider">OR</div>
+                    <div className="divider">OR</div>
 
                     <button
                         onClick={() => signInWithGoogle()}
-                        class="btn btn-outline btn-accent text-base font-normal">Continue with google</button>
+                        className="btn btn-outline btn-accent text-base font-normal">Continue with google</button>
 
                 </div>
             </div>
