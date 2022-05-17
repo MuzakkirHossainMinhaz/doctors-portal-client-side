@@ -1,45 +1,71 @@
 import React from 'react';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../../Shared/Loading/Loading';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Register = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [
-        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
         user,
         loading,
         error,
-    ] = useSignInWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth);
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
 
+    const navigate = useNavigate();
 
-    const onSubmit = data => {
+    const onSubmit = async data => {
         console.log(data);
-        signInWithEmailAndPassword(data.email, data.password);
+        await createUserWithEmailAndPassword(data.email, data.password);
+        await updateProfile({ displayName: data.name });
+        navigate('/appointment');
     }
 
-    if (googleUser) {
-        console.log(googleUser);
+    if (user || googleUser) {
+        user ? console.log(user) : console.log(googleUser);
     }
-    if (loading || googleLoading) {
+
+    if (loading || googleLoading || updating) {
         return <Loading></Loading>;
     }
 
     let signInError;
-    if (error || googleError) {
-        signInError = <small className='text-red-600'>{error?.message || googleError?.message}</small>
+    if (error || googleError || updateError) {
+        signInError = <small className='text-red-600'>{error?.message || googleError?.message || updateError?.message}</small>
     }
 
     return (
         <div className='flex justify-center items-center h-screen'>
             <div class="card w-96 bg-base-100 shadow-xl">
                 <div class="card-body">
-                    <h2 class="mb-2 font-semibold text-xl text-center">Login</h2>
+                    <h2 class="mb-2 font-semibold text-xl text-center">Register</h2>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
+
+                        <div class="form-control w-full max-w-xs">
+                            <label class="label">
+                                <span class="label-text">Full Name</span>
+                            </label>
+                            <input
+                                type="name"
+                                placeholder=""
+                                class="input input-bordered w-full max-w-xs"
+                                {...register("name", {
+                                    required: {
+                                        value: true,
+                                        message: "Name is required!"
+                                    }
+                                })}
+                            />
+                            <label class="label">
+                                {errors.name?.type === 'required' && <span class="label-text-alt text-red-600">{errors.name.message}</span>}
+                                {errors.name?.type === 'pattern' && <span class="label-text-alt text-red-600">{errors.name.message}</span>}
+                            </label>
+                        </div>
 
                         <div class="form-control w-full max-w-xs">
                             <label class="label">
@@ -61,11 +87,11 @@ const Login = () => {
                                 })}
                             />
                             <label class="label">
-                                {/* {errors.email?.type === 'required' && <span class="label-text-alt text-red-600 tooltip tooltip-open tooltip-bottom align-middle" data-tip={errors.email.message}></span>} */}
                                 {errors.email?.type === 'required' && <span class="label-text-alt text-red-600">{errors.email.message}</span>}
                                 {errors.email?.type === 'pattern' && <span class="label-text-alt text-red-600">{errors.email.message}</span>}
                             </label>
                         </div>
+
                         <div class="form-control w-full max-w-xs">
                             <label class="label">
                                 <span class="label-text">Password</span>
@@ -95,24 +121,10 @@ const Login = () => {
                             {signInError}
                         </div>
 
-                        <input className='btn btn-accent text-base font-normal w-full max-w-xs' type="submit" value='Login' />
+                        <input className='btn btn-accent text-base font-normal w-full max-w-xs' type="submit" value='Register' />
                     </form>
 
-                    <p className='text-xs text-center mt-2'>New to Doctors Portal? <Link className='text-secondary' to='/register'>Create new account</Link></p>
-
-                    {/* <div>
-                        <label className='text-start text-sm'>Email</label>
-                        <input type="email" placeholder="" class="input input-bordered w-full max-w-xs" />
-                    </div>
-                    <div>
-                        <label className='text-start text-sm'>Password</label>
-                        <input type="password" placeholder="" class="input input-bordered w-full max-w-xs" />
-                    </div>
-                    <p className='text-[10px]'>Forgot Password ?</p>
-
-                    <button class="btn btn-accent text-base font-normal">Login</button>
-
-                    */}
+                    <p className='text-xs text-center mt-2'>Already have an account? <Link className='text-secondary' to='/login'>Please Login</Link></p>
 
                     <div class="divider">OR</div>
 
@@ -126,4 +138,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;
