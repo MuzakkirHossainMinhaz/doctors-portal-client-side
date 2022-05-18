@@ -51,7 +51,7 @@ const AppointmentModal = ({ date, treatment, setTreatment, refetch }) => {
             <input type="checkbox" id="appointment-modal" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
-                    <label htmlFor="appointment-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <label html htmlFor="appointment-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="font-semibold text-xl">{name}</h3>
 
                     <form onSubmit={handleBooking} action="" className='mt-8 grid grid-cols-1 gap-5 justify-items-center'>

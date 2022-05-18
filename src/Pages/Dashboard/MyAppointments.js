@@ -21,10 +21,10 @@ const MyAppointments = () => {
         <div className='bg-slate-50 rounded-b-xl p-5'>
             <div className='pb-4 flex justify-between items-center'>
                 <h1 className='text-2xl'>My Appointments</h1>
-                <button class="btn btn-outline px-10">{todayDate}</button>
+                <button className="btn btn-outline px-10">{todayDate}</button>
             </div>
-            <div class="overflow-x-auto">
-                <table class="table w-full">
+            <div className="overflow-x-auto">
+                <table className="table w-full">
                     <thead>
                         <tr>
                             <th></th>
@@ -36,7 +36,9 @@ const MyAppointments = () => {
                     </thead>
                     <tbody>
                         {
-                            appointments.map((a, idx) => <tr>
+                            appointments.map((a, idx) => <tr
+                                key={idx}
+                            >
                                 <th>{idx + 1}</th>
                                 <td>{a.patientName}</td>
                                 <td>{a.treatment}</td>
