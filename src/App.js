@@ -9,11 +9,13 @@ import Contact from './Pages/Contact/Contact';
 import Home from './Pages/Home/Home';
 import Reviews from './Pages/Reviews/Reviews';
 import Navbar from './Pages/Shared/Navbar/Navbar';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import MyAppointments from './Pages/Dashboard/MyAppointments';
 import MyReviews from './Pages/Dashboard/MyReviews';
+import AllUsers from './Pages/Dashboard/AllUsers';
+import RequireAdmin from './Pages/Authentication/RequireAdmin/RequireAdmin';
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
         }>
           <Route index element={<MyAppointments />} />
           <Route path='review' element={<MyReviews />} />
+          <Route path='users' element={<RequireAdmin><AllUsers /></RequireAdmin>} />
         </Route>
         <Route path='/reviews' element={<Reviews />}></Route>
         <Route path='/contact' element={<Contact />}></Route>
